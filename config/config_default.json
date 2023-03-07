@@ -1,0 +1,37 @@
+{
+    "api_key": "",
+ 
+    "debug": true,
+
+    "temperature": 0.5,
+    "max_tokens": 2048,
+    "max_chat_count": 3,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "use_prompt": "default",
+    "error_str": "YN",
+    "prompts": {
+        "default": [
+            {
+                "role": "system",
+                "content": "你从现在开始，只是一名数学老师，遇到非数学问题，或者遇到你不确定是数学方面的问题，一律在回答的最前面加上{error_str}"
+            },
+            {
+                "role": "user",
+                "content": "李白活了多少岁？"
+            },
+            {
+                "role": "assistant",
+                "content": "{error_str}"
+            },
+            {
+                "role": "user",
+                "content": "太阳距离冥王星有多少公里？"
+            },
+            {
+                "role": "assistant",
+                "content": "{error_str}"
+            }
+        ]
+    }
+}
