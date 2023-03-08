@@ -20,21 +20,22 @@
 + 安装: **pip3 install openai**
 + 配置: config/config.json, 具体见下面 “配置” 的 章节
 + 运行: run.bat
+    - 如果 config/config.json 不存在，会从 config_template.json 拷贝一份出来
 
 ## 2. 配置 config/config.json
 
-||||
-|--|--|--|
-|api_key|你在 OpenAI 分配的 Key，如果没有，请找运维配置||
-|debug|如果为 true，则 运行时候，控制台会输出每次的问题的完整信息||
-|max_tokens|问题 + 回答 的 总token|注意：这涉及到您的 `项目经费`||
-|temperature|温度，值在[0, 2]|小于0.2，回答很确定；大于0.8，回答的很随机||
-|max_chat_count|每次询问最多带多少以前用户的问题|一条对话2个记录，不含promps的数量；注意：这涉及到您的 `项目经费`|
-|presence_penalty|[-2,2]，意义暂时未明，保留||
-|frequency_penalty|[-2,2]，意义暂时未明，保留||
-|use_prompt|默认用 prompts 中 的 哪个||
-|error_str|prompts 的 {error_str}的替换，用于让程序知道 用户问了一个和设定场景无关的话题，下次就不将该问题加到 gpt 中了|
-|prompts|调教，是一个 obejct，每个值都是一个场景，里面可以放这个场景的系统提示和用例|见范例：一个高中物理老师|
+|键|建议值|作用|说明|
+|--|--|--|--|
+|api_key|必填|你在 OpenAI 分配的 Key，如果没有，请找运维配置||
+|debug|true|如果为 true，则 运行时候，控制台会输出每次的问题的完整信息||
+|max_tokens|2048|问题 + 回答 的 总token|注意：这涉及到您的 `项目经费`||
+|temperature|0.5|温度，值在[0, 2]|小于0.2，回答很确定；大于0.8，回答的很随机||
+|max_chat_count|3|每次询问最多带多少以前用户的问题|一条对话2个记录，不含promps的数量；注意：这涉及到您的 `项目经费`|
+|presence_penalty|0|[-2,2]，意义暂时未明，保留||
+|frequency_penalty|0|[-2,2]，意义暂时未明，保留||
+|use_prompt|"default"|默认用 prompts 中 的 哪个||
+|error_str|"YN"|prompts 的 {error_str}的替换，用于让程序知道 用户问了一个和设定场景无关的话题，下次就不将该问题加到 gpt 中了|
+|prompts|无|调教，是一个 obejct，每个值都是一个场景，里面可以放这个场景的系统提示和用例|见范例：一个高中物理老师|
 
 ## 3. TODO
 
@@ -48,9 +49,12 @@
 
 + [加上 Embedding](https://github.com/gannonh/gpt3.5-turbo-pgvector)，可以在庞大的历史记录中，找和问题最相关的 上传
 + 改进 调教提示，让其更明确范围
-    - 目前：只要问一个和数学沾边的问题，就可以绕过限制
-    - 例子：李白是数学家吗？或者 李白懂数学吗？
-    - 然后就可以问李白的其他事情了。。。
+    - Q：“拉格朗日是数学家吗？”
+    - A: “是的”
+    - Q: "那李白呢？"
+    - A：“不是，李白是唐朝的诗人，***”
+    - Q：“哦，那唐朝都有哪些诗人”
+    - 这时候，它有时候会控制不住，跟你BB起来。。。但有时候又有身为数学机器的自觉。
 + 和 [LangChain]() 连起来，打通 底层数据库和chatgpt
 
 ## 4. 范例：我是数学老师，只能问我数学题

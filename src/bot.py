@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
     is_continue = True
     while is_continue:
-        question = input("请输入数学问题，直接回车就退出：")
+        question = input("（回车退出）有什么可以帮助你：")
 
         is_continue = len(question.strip()) > 0
 
