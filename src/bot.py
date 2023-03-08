@@ -143,10 +143,14 @@ class ChatBot(object):
                 })
 
             if self.debug:
+                rmb = 7 * 100 * 0.002 / 1000 * answer.usage.total_tokens
+                print(f"仅用于调试：")
+                print("    1美元 = 7元，价格：$0.002 / 1000 tokens")
+                print(f"   这一次 的 费用 如下：{round(rmb, 2)} 分钱")
+                
                 data = json.dumps(answer.usage, sort_keys=True, indent=4)
                 data = data.encode('utf-8').decode('unicode_escape')
-
-                print(f"仅用于调试：这一次 的 费用 如下：\n {data} \n")
+                print(f"{data}")
 
             r = {
                 "errcode": 0,
